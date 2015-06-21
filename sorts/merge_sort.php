@@ -2,7 +2,7 @@
 
 /**
  * Merge Sort.  Divide and Conquer. Recursive.
- * Divide array into sub_arrays, then recursively merge sub_arrays to bigger array.
+ * Divide array into sub_arrays, then recursively swap & merge sub_arrays to bigger array.
  *
  * Average Case & Worst Case: O(nlog(n))*
  * Space Complexity: O(n); Depend;
@@ -37,7 +37,6 @@ function _merge(&$l_array, &$r_array, &$array)
     $i = 0;  // position for l_array
     $j = 0;  // position for r_array
     $k = 0;  // position for array
-
 
     while($i < $nl && $j < $nr)
     {
@@ -91,7 +90,7 @@ function merge_sort(&$array)
 
     merge_sort($left_array);
     merge_sort($right_array);
-    
+
     _merge($left_array, $right_array, $array);
 
 }
@@ -111,5 +110,5 @@ if ($test_array[0] === 1) {
 
 }
 
-// expect 1,2,3,4,5
+// expect 1,2,3,4,5,6
 print_r($test_array);
