@@ -16,7 +16,7 @@ class SimpleQueue
      * Add item to queue.
      * @param $item
      */
-    public function queue($item)
+    public function enqueue($item)
     {
         $this->_queue[] = $item;
         $this->_length++;
@@ -45,9 +45,9 @@ class SimpleQueue
 
 
 $q = new SimpleQueue();
-$q->queue('a');
-$q->queue('b');
-$q->queue('c');
+$q->enqueue('a');
+$q->enqueue('b');
+$q->enqueue('c');
 
 // expect an array of a,b,c
 print_r($q->getQueue());
