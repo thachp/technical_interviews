@@ -1,7 +1,7 @@
 <?php	
 
 /**
-* SPLStack provide functionalities of a stack implemented using a doubly linked list.
+* SPLStack provide function of a stack implemented using a doubly linked list.
 * @author thachp
 *
 */
