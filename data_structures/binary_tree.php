@@ -58,6 +58,51 @@ class BinarySearchTree
         }
     }
 
+
+    /**
+     * Visit the node, add it child nodes in the queues
+     * Time Complexity: O(n)
+     * Space Complexity: O(n)
+     */
+
+    public function BFS()
+    {
+        if($this->isEmpty() === true)
+        {
+            return false; // no root nodes
+        }
+
+        $q = new SplQueue();
+
+        // add root node to the queue FIFO
+        $this->root->level = 1;
+        $q->enqueue($this->root);
+        $current_level = $this->root->level;
+        $out = array();
+
+        while(! $q->isEmpty())
+        {
+            $current_node = $q->shift();
+            if($current_node->level > $current_level) {
+                $current_level++;
+            }
+
+            array_push($out,$current_node->data. " ");
+
+            if($current_node->left) {
+                $current_node->left->level = $current_level + 1;
+                $q->enqueue($current_node->left);
+            }
+
+            if($current_node->right) {
+                $current_node->right->level = $current_level + 1;
+                $q->enqueue($current_node->right);
+            }
+        }
+        
+        return $out;
+    }
+
     /**
      * Insert an item into three node.
      * @param $item
@@ -91,13 +136,18 @@ class BinarySearchTree
 } // end class
 
 // test tree
-$arr = array(50, 64, 10, 6, 40, 72, 80, 100, 21);
+$arr = array(50, 64, 10, 6, 40, 72, 80, 100, 21,53,75);
 $btree = new BinarySearchTree();
 for ($i = 0, $n = count($arr); $i < $n; $i++) {
     $btree->insert($arr[$i]);
 }
 
+echo("print binary!! \n");
 print_r($btree);
+
+echo("print traversal!! \n");
+$level_order = $btree->BFS();
+print_r($level_order);
 
 
 
