@@ -78,6 +78,7 @@ class BinarySearchTree
             }
         }
     }
+
     /**
      * Check if the root is empty.
      * @return bool
