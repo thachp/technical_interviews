@@ -8,13 +8,6 @@
  * @author thachp
  */
 
-function swap(&$a, &$b)
-{
-    $temp = $a;
-    $a = $b;
-    $b = $temp;
-}
-
 function insertion_sort(&$array)
 {
     $n_length = count($array);
