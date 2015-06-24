@@ -63,17 +63,17 @@ class BinarySearchTree
      * Visit the node, add it child nodes in the queue. Return linear array.
      * Time Complexity: O(n)
      * Space Complexity: O(n)
+     *
+     * @return array|bool
      */
-
+    
     public function BFS()
     {
         if($this->isEmpty() === true)
         {
             return false; // no root nodes
         }
-
         $q = new SplQueue();
-
         // add root node to the queue FIFO
         $this->root->level = 1;
         $q->enqueue($this->root);
