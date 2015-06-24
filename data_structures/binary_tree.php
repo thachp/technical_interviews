@@ -60,7 +60,7 @@ class BinarySearchTree
 
 
     /**
-     * Visit the node, add it child nodes in the queues
+     * Visit the node, add it child nodes in the queue. Return linear array.
      * Time Complexity: O(n)
      * Space Complexity: O(n)
      */
@@ -99,7 +99,7 @@ class BinarySearchTree
                 $q->enqueue($current_node->right);
             }
         }
-        
+
         return $out;
     }
 
@@ -146,9 +146,18 @@ echo("print binary!! \n");
 print_r($btree);
 
 echo("print traversal!! \n");
-$level_order = $btree->BFS();
-print_r($level_order);
+// expect 50 10 64 6 40 53 72 21 80 75 100
+$level_orders = $btree->BFS();
+echo implode('', $level_orders);
+echo("\n");
 
+// test first record
+if ((int) $level_orders[0] === 50) {
+    echo("It looks good. \n");
+} else {
+    echo("It looks bad. \n");
+
+}
 
 
 
