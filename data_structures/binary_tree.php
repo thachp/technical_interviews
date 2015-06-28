@@ -9,6 +9,9 @@
 class BinaryNode
 {
 
+    // these are height.. need to be updated once a while
+    // @see https://www.youtube.com/watch?v=IWzYoXKaRIc
+
     public $level = null;
     public $data = null;
     public $left = null;
@@ -33,6 +36,7 @@ class BinaryNode
 class BinarySearchTree
 {
     public $root = null;
+    public $output = array();
 
     /**
      * Construct Binary three.  If
@@ -58,6 +62,61 @@ class BinarySearchTree
         }
     }
 
+    /**
+     * DFS - Pre Order Traversal
+     * Data Left Right
+     */
+    public function preOrder($node)
+    {
+        $this->output[] = $node->data;
+
+        if ($node->left) {
+            $this->preOrder($node->left);
+        }
+
+        if ($node->right) {
+            $this->preOrder($node->right);
+        }
+
+    }
+
+
+    /**
+     * DFS - In Order Traversal
+     * Left Data Right
+     */
+    public function inOrder($node)
+    {
+        if ($node->left) {
+            $this->inOrder($node->left);
+        }
+
+        $this->output[] = $node->data;
+
+        if ($node->right) {
+            $this->inOrder($node->right);
+        }
+
+    }
+
+    /**
+     * DFS - Post Order Traversal
+     * Left Right Data
+     */
+    public function postOrder($node)
+    {
+
+        if ($node->left) {
+            $this->postOrder($node->left);
+        }
+
+        if ($node->right) {
+            $this->postOrder($node->right);
+        }
+
+        $this->output[] = $node->data;
+
+    }
 
     /**
      * Visit the node, add it child nodes in the queue. Return linear array.
@@ -66,11 +125,10 @@ class BinarySearchTree
      *
      * @return array|bool
      */
-    
+
     public function BFS()
     {
-        if($this->isEmpty() === true)
-        {
+        if ($this->isEmpty() === true) {
             return false; // no root nodes
         }
         $q = new SplQueue();
@@ -80,22 +138,21 @@ class BinarySearchTree
         $current_level = $this->root->level;
         $out = array();
 
-        while(! $q->isEmpty())
-        {
+        while (!$q->isEmpty()) {
             $current_node = $q->shift();
-            if($current_node->level > $current_level) {
+            if ($current_node->level > $current_level) {
                 $current_level++;
             }
 
-            array_push($out,$current_node->data. " ");
+            array_push($out, $current_node->data);
 
-            if($current_node->left) {
-                $current_node->left->level = $current_level + 1;
+            if ($current_node->left) {
+                $current_node->left->level = $current_level++;
                 $q->enqueue($current_node->left);
             }
 
-            if($current_node->right) {
-                $current_node->right->level = $current_level + 1;
+            if ($current_node->right) {
+                $current_node->right->level = $current_level++;
                 $q->enqueue($current_node->right);
             }
         }
@@ -135,29 +192,49 @@ class BinarySearchTree
 
 } // end class
 
+
+function debug($array, $assert, $value, $subject = '')
+{
+    echo($subject . " \n");
+    echo implode(', ', $array) . "\n";
+
+    if ($assert === $value) {
+        echo("It looks good. \n\n");
+    } else {
+        echo("It looks bad. \n\n");
+    }
+}
+
 // test tree
-$arr = array(50, 64, 10, 6, 40, 72, 80, 100, 21,53,75);
+$arr = array(50, 64, 10, 6, 40, 72, 80, 100, 21, 53, 75);
 $btree = new BinarySearchTree();
 for ($i = 0, $n = count($arr); $i < $n; $i++) {
     $btree->insert($arr[$i]);
 }
 
-echo("print binary!! \n");
-print_r($btree);
+//print_r($btree);
 
-echo("print traversal!! \n");
 // expect 50 10 64 6 40 53 72 21 80 75 100
 $level_orders = $btree->BFS();
-echo implode('', $level_orders);
-echo("\n");
+debug($level_orders, $level_orders[0], 50, "print traversal!!");
 
-// test first record
-if ((int) $level_orders[0] === 50) {
-    echo("It looks good. \n");
-} else {
-    echo("It looks bad. \n");
+// expect 50, 10, 6, 40, 21, 64, 53, 72, 80, 75, 100
+$btree->preOrder($btree->root);
+$preorder = $btree->output;
+debug($preorder, (int)$preorder[0], 50, "print pre-order!!");
 
-}
+// expect 6, 10, 21, 40, 50, 53, 64, 72, 75, 80, 100
+$btree->output = array();
+$btree->inOrder($btree->root);
+$inOrder = $btree->output;
+debug($inOrder, $inOrder[0], 6, "print inOrder!!");
+
+
+$btree->output = array();
+$btree->postOrder($btree->root);
+$postOrder = $btree->output;
+debug($postOrder, $postOrder[0], 6, "print postOrder!!");
+
 
 
 
