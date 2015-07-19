@@ -12,9 +12,9 @@
  * Adjacency lists are more space-efficient, particularly for sparse graphs in which most
  * pairs of vertices are unconnected, while adjacency matrices facilitate quicker lookups.
  *
- ** @author thachp
+ * @author thachp
+ * @see http://www.sitepoint.com/data-structures-4/, attribution the author.
  */
-
 
 /**
  * Class Graph
@@ -28,7 +28,7 @@ class Graph
     private $_graph = null;
 
     // track the relationships between nodes
-    public $_visited = array();
+    private $_visited = array();
 
     // for debugging
     public $_output = array();
@@ -45,22 +45,17 @@ class Graph
      */
     public function bfs($origin)
     {
-
         // reset all nodes in graph
         $this->_reset_nodes();
-
-        // create queue
         $q = new SplQueue();
         $q->enqueue($origin);
 
         // origin has been visited
         $this->_visited[$origin] = true;
-
         while(!$q->isEmpty())
         {
             $node = $q->dequeue();
             $neighbors = $this->_graph[$node];
-
             $this->_output[] = $node;
 
             foreach($neighbors as $neighbor)
@@ -74,6 +69,71 @@ class Graph
         }
     }
 
+    /**
+     * Find shortest path between two nodes
+     * @param $origin
+     * @param $destination
+     */
+    public function shortest($origin, $destination)
+    {
+        $path = array();
+        $path[$origin] = new SplDoublyLinkedList();
+        $path[$origin]->push($origin);
+
+
+        if($origin === $destination)
+        {
+            return -1;
+        }
+
+        // reset all nodes in graph
+        $this->_reset_nodes();
+        $q = new SplQueue();
+        $q->enqueue($origin);
+
+        // origin has been visited
+        $this->_visited[$origin] = true;
+        while(!$q->isEmpty())
+        {
+            $node = $q->dequeue();
+            $neighbors = $this->_graph[$node];
+            $this->_output[] = $node;
+
+            foreach($neighbors as $neighbor)
+            {
+                if($this->_visited[$neighbor] === false)
+                {
+
+                    $this->_visited[$neighbor] = true;
+                    $q->enqueue($neighbor);
+                    $path[$neighbor] = clone $path[$node];
+                    $path[$neighbor]->push($neighbor);
+                }
+            }
+        }
+
+        if (isset($path[$destination])) {
+            echo "$origin to $destination in ",
+                count($path[$destination]) - 1,
+            " hops \n";
+            $sep = '';
+            foreach ($path[$destination] as $vertex) {
+                echo $sep, $vertex;
+                $sep = '->';
+            }
+            echo "\n";
+        }
+        else {
+            echo "No route from $origin to $destination";
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Reset all nodes
+     */
     protected function _reset_nodes()
     {
         foreach($this->_graph as $node => $adj)
@@ -121,3 +181,5 @@ $graph->bfs('A');
 // expect A,B,F,D,E,C
 debug($graph->_output, "C", $graph->_output[5], "BFS Traversal");
 
+// expect D->E->F->C, 3 hops
+$graph->shortest('D','C');
