@@ -1,9 +1,12 @@
 <?php
 
 /**
- * Binary tree using in PHP objects.
+ * Binary tree in PHP objects.
  * A binary tree is a tree data structure in which each node has at most two children,
  * which are referred to as the left child and the right child
+ *
+ * Purpose:  To understand how Insertion, DFS (PreOrder, InOrder, PostOrder), BFS works
+ * in Binary Tree data structure.
  ** @author thachp
  */
 class BinaryNode
@@ -11,8 +14,8 @@ class BinaryNode
 
     // these are height.. need to be updated once a while
     // @see https://www.youtube.com/watch?v=IWzYoXKaRIc
-
     public $level = null;
+
     public $data = null;
     public $left = null;
     public $right = null;

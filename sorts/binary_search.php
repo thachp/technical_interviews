@@ -1,11 +1,12 @@
 <?php
 
 /**
- * Understand Binary Search
+ * How Binary Search.  Divide and Conquer using recursiion.
  * Requirement: array must be sorted first
+ *
+ * Purpose:  To understand how binary search work.
  * @author thachp
  */
-
 
 function binary_search($search, $array, $min, $max)
 {
