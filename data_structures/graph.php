@@ -39,6 +39,22 @@ class Graph
         $this->_graph = $nodes;
     }
 
+
+    public function dfs($origin)
+    {
+        $this->_visited[$origin] = true;
+        $this->_output[] = $origin;
+
+        foreach($this->_graph[$origin] as $node)
+        {
+            if($this->_visited[$node] === false)
+            {
+                $this->dfs($node);
+            }
+        }
+    }
+
+
     /**
      * Breadth First Search
      * We use Queue.
@@ -46,7 +62,7 @@ class Graph
     public function bfs($origin)
     {
         // reset all nodes in graph
-        $this->_reset_nodes();
+        $this->reset_nodes();
         $q = new SplQueue();
         $q->enqueue($origin);
 
@@ -87,7 +103,7 @@ class Graph
         }
 
         // reset all nodes in graph
-        $this->_reset_nodes();
+        $this->reset_nodes();
         $q = new SplQueue();
         $q->enqueue($origin);
 
@@ -134,7 +150,7 @@ class Graph
     /**
      * Reset all nodes
      */
-    protected function _reset_nodes()
+    public function reset_nodes()
     {
         foreach($this->_graph as $node => $adj)
         {
@@ -174,12 +190,22 @@ $data = array(
 );
 
 
-$graph = new Graph($data);
+$bfs_graph = new Graph($data);
 
 // bread first search traversal, good for finding shortest path
-$graph->bfs('A');
+$bfs_graph->bfs('A');
 // expect A,B,F,D,E,C
-debug($graph->_output, "C", $graph->_output[5], "BFS Traversal");
+debug($bfs_graph->_output, "C", $bfs_graph->_output[5], "BFS Traversal");
 
 // expect D->E->F->C, 3 hops
-$graph->shortest('D','C');
+$bfs_graph->shortest('D','C');
+
+
+echo("\n");
+
+$dfs_graph = new Graph($data);
+$dfs_graph->reset_nodes();
+$dfs_graph->dfs("A");
+
+// expect A,B,D,E,F,C
+debug($dfs_graph->_output, "B", $dfs_graph->_output[1], "DFS Traversal");
