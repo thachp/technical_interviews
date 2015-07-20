@@ -2,6 +2,7 @@
 
 /**
  * Purpose of this is to understand how to add , and insert words to trie data structure.
+ * @see https://www.topcoder.com/community/data-science/data-science-tutorials/using-tries/
  * @see  http://www.parkerbossier.com/files/chatterblocks_trie.php.txt
  * @author http://www.parkerbossier.com/
  */
