@@ -1,6 +1,7 @@
 <?php
 
 // Heaps are binary trees.  Used to find Minimum / Maximum of values in data sets.
+// this is to understand how heaps work.
 // @author thachp
 
 $numbers = array(10,2,8,4,20,6,11,18,25);
