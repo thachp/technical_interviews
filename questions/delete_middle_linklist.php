@@ -16,5 +16,3 @@ function deleteNode(&$node)
     $node->next = $next->$next;
     return true;
 }
-
-
