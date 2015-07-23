@@ -1,6 +1,5 @@
 <?php
 
-
 class DirectedTree {
 
     // track all nodes or vertices
@@ -18,7 +17,6 @@ class DirectedTree {
         $this->_graph = $nodes;
     }
 
-
     /**
      * Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
      * @param $origin
@@ -27,8 +25,10 @@ class DirectedTree {
      */
     public function hasRouted($origin, $destination)
     {
+
         // reset all nodes in graph
         $this->reset_nodes();
+
         $q = new SplQueue();
         $q->enqueue($origin);
 
@@ -38,7 +38,6 @@ class DirectedTree {
         {
             $node = $q->dequeue();
             $neighbors = $this->_graph[$node];
-            $this->_output[] = $node;
 
             foreach($neighbors as $neighbor)
             {
