@@ -2,7 +2,7 @@
 
 /**
  * Convert binary search tree to doubly linklist.
- * 
+ *
  * @author thachp
  */
 
