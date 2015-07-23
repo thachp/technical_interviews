@@ -8,7 +8,7 @@
  */
 
 
-function nthToLast($head, $k)
+function nthToLast(&$head, $k)
 {
     if ($k <= 0)
     {
